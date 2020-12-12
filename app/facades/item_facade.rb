@@ -14,4 +14,8 @@ class ItemFacade
   def self.update_item(id, item)
     ItemSerializer.new(Item.update(id, item))
   end
+
+  def self.destroy_item(id)
+    ItemSerializer.new(Item.destroy(id))
+  end
 end

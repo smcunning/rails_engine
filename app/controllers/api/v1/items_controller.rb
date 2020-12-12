@@ -15,6 +15,10 @@ class Api::V1::ItemsController < ApplicationController
     render json: ItemFacade.update_item(params[:id], item_params)
   end
 
+  def destroy
+    render json: ItemFacade.destroy_item(params[:id])
+  end
+
   private
 
   def item_params
