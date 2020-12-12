@@ -10,4 +10,8 @@ class MerchantFacade
   def self.create_merchant(merchant)
     MerchantSerializer.new(Merchant.create(merchant))
   end
+
+  def self.update_merchant(id, merchant)
+    MerchantSerializer.new(Merchant.update(id, merchant))
+  end
 end
