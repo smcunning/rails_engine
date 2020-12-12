@@ -1,5 +1,9 @@
 class Api::V1::MerchantsController < ApplicationController
- def index
+  def index
    render json: MerchantFacade.all_merchants
- end
+  end
+
+  def show
+   render json: MerchantFacade.merchant_by_id(params[:id])
+  end
 end
