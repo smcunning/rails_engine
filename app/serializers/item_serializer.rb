@@ -3,5 +3,4 @@ class ItemSerializer
   attributes :name,
              :description,
              :unit_price
-  belongs_to :merchant
 end
