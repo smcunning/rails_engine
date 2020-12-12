@@ -14,4 +14,8 @@ class MerchantFacade
   def self.update_merchant(id, merchant)
     MerchantSerializer.new(Merchant.update(id, merchant))
   end
+
+  def self.delete_merchant(id)
+    MerchantSerializer.new(Merchant.destroy(id))
+  end
 end
