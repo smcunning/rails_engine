@@ -10,4 +10,8 @@ class ItemFacade
   def self.create_item(item)
     ItemSerializer.new(Item.create(item))
   end
+
+  def self.update_item(id, item)
+    ItemSerializer.new(Item.update(id, item))
+  end
 end

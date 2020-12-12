@@ -11,6 +11,10 @@ class Api::V1::ItemsController < ApplicationController
     render json: ItemFacade.create_item(item_params)
   end
 
+  def update
+    render json: ItemFacade.update_item(params[:id], item_params)
+  end
+
   private
 
   def item_params
