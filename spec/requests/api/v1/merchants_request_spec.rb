@@ -36,7 +36,6 @@ describe 'Merchants API' do
 
     post "/api/v1/merchants", headers: headers, params: JSON.generate(merchant: merchant_params)
     created_merchant = Merchant.last
-    # require "pry"; binding.pry
     expect(response).to be_successful
     expect(created_merchant.name).to eq(merchant_params[:name])
   end

@@ -6,4 +6,8 @@ class ItemFacade
   def self.item_by_id(id)
     ItemSerializer.new(Item.find(id))
   end
+
+  def self.create_item(item)
+    ItemSerializer.new(Item.create(item))
+  end
 end
