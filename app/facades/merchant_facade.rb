@@ -6,4 +6,8 @@ class MerchantFacade
   def self.merchant_by_id(id)
     MerchantSerializer.new(Merchant.find(id))
   end
+
+  def self.create_merchant(merchant)
+    MerchantSerializer.new(Merchant.create(merchant))
+  end
 end

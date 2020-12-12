@@ -6,4 +6,14 @@ class Api::V1::MerchantsController < ApplicationController
   def show
    render json: MerchantFacade.merchant_by_id(params[:id])
   end
+
+  def create
+    render json: MerchantFacade.create_merchant(merchant_params)
+  end
+
+  private
+
+  def merchant_params
+    params.require(:merchant).permit(:name)
+  end
 end
