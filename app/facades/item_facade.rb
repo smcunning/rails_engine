@@ -16,6 +16,6 @@ class ItemFacade
   end
 
   def self.destroy_item(id)
-    ItemSerializer.new(Item.destroy(id))
+    Item.destroy(id)
   end
 end

@@ -16,12 +16,12 @@ class Api::V1::MerchantsController < ApplicationController
   end
 
   def destroy
-    render json: MerchantFacade.delete_merchant(params[:id])
+    MerchantFacade.delete_merchant(params[:id])
   end
 
   private
 
   def merchant_params
-    params.require(:merchant).permit(:name)
+    params.permit(:name)
   end
 end
