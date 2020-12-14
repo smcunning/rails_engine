@@ -15,10 +15,14 @@ describe 'Merchant Items API' do
     get "/api/v1/merchants/#{merchant.id}/items"
 
     expect(response).to be_successful
+    expect(response.content_type).to eq("application/json")
 
     items = JSON.parse(response.body, symbolize_names: true)
 
-    expecct(items[:data]).first[:type].to eq('item')
-    expect(items[:data]).length.to eq(3)
+    expect(items[:data].length).to eq(3)
+    expect(items[:data].first).to have_key(:id)
+    expect(items[:data].first).to have_key(:attributes)
+    expect(items[:data].first).to have_key(:type)
+    expect(items[:data].first[:type]).to eq('item')    
   end
 end
