@@ -7,6 +7,10 @@ Rails.application.routes.draw do
         get '/find', to: 'search#show'
       end
 
+      namespace :items do
+        get '/find', to: 'search#show'
+      end
+
       resources :merchants do
         resources :items, only: [:index], module: :merchants
       end
