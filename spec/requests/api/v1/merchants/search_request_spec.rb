@@ -13,7 +13,7 @@ describe "Merchant Find Single Endpoint" do
 
     expect(response).to be_successful
 
-    merchant = JSON.parse(response.body, symbolize_names: true)[:data][0]
+    merchant = JSON.parse(response.body, symbolize_names: true)[:data]
 
     expect(merchant).to be_a Hash
     expect(merchant[:id]).to eq(merchant1.id.to_s)
@@ -30,7 +30,7 @@ describe "Merchant Find Single Endpoint" do
 
     expect(response).to be_successful
 
-    merchant = JSON.parse(response.body, symbolize_names: true)[:data][0]
+    merchant = JSON.parse(response.body, symbolize_names: true)[:data]
 
     expect(merchant).to be_a Hash
     expect(merchant[:id]).to eq(merchant1.id.to_s)
@@ -48,25 +48,23 @@ describe "Merchant Find Single Endpoint" do
 
     expect(response).to be_successful
 
-    merchant = JSON.parse(response.body, symbolize_names: true)[:data][0]
+    merchant = JSON.parse(response.body, symbolize_names: true)[:data]
 
     expect(merchant).to be_a Hash
     expect(merchant[:id]).to eq(merchant1.id.to_s)
     expect(merchant[:id]).to_not eq(merchant2.id.to_s)
     expect(merchant[:attributes][:name]).to eq(merchant1.name)
-    expect(merchant[:attributes][:created_at]).to eq(merchant1.created_at)
 
     #updated_at
     get "/api/v1/merchants/find?updated_at=#{updated_at}"
 
     expect(response).to be_successful
 
-    merchant = JSON.parse(response.body, symbolize_names: true)[:data][0]
+    merchant = JSON.parse(response.body, symbolize_names: true)[:data]
 
     expect(merchant).to be_a Hash
     expect(merchant[:id]).to eq(merchant3.id.to_s)
     expect(merchant[:id]).to_not eq(merchant1.id.to_s)
     expect(merchant[:attributes][:name]).to eq(merchant3.name)
-    expect(merchant[:attributes][:created_at]).to eq(merchant3.updated_at)
   end
 end

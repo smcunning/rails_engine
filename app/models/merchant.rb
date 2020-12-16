@@ -16,6 +16,10 @@ class Merchant < ApplicationRecord
   end
 
   def self.find_merchant(attribute, query)
-    where("#{attribute} ILIKE ?", "%#{query}%")
+    if attribute == "created_at" || attribute == "updated_at"
+      find_by("DATE(#{attribute}) = ?", "%#{query}%")
+    else
+      find_by("#{attribute} ILIKE ?", "%#{query}%")
+    end
   end
 end
