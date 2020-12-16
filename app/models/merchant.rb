@@ -15,7 +15,7 @@ class Merchant < ApplicationRecord
             .limit(quantity)
   end
 
-  def self.find_merchant(query)
-    Merchant.find_by("merchants.name::text ILIKE ?", "%#{query}%")
+  def self.find_merchant(attribute, query)
+    where("#{attribute} ILIKE ?", "%#{query}%")
   end
 end
