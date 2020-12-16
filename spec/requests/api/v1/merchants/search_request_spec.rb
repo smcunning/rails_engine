@@ -10,7 +10,7 @@ describe "Merchant Single Finder Endpoint" do
     get "/api/v1/merchants/find?#{attribute}=#{query}"
 
     expect(response).to be_successful
-    expect(responts.content_type).to eq("application/json")
+    expect(response.content_type).to eq("application/json")
 
     merchant = JSON.parse(response.body, symbolize_names: true)
 
