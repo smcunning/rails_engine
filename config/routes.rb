@@ -4,6 +4,11 @@ Rails.application.routes.draw do
     namespace :v1 do
       namespace :merchants do
         get '/most_revenue', to: 'revenue#most_revenue'
+        get '/find', to: 'search#show'
+      end
+
+      namespace :items do
+        get '/find', to: 'search#show'
       end
 
       resources :merchants do

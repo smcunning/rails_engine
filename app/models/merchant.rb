@@ -15,4 +15,11 @@ class Merchant < ApplicationRecord
             .limit(quantity)
   end
 
+  def self.find_merchant(attribute, query)
+    if attribute == "created_at" || attribute == "updated_at"
+      find_by("DATE(#{attribute}) = ?", "%#{query}%")
+    else
+      find_by("#{attribute} ILIKE ?", "%#{query}%")
+    end
+  end
 end
