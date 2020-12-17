@@ -8,6 +8,6 @@ class Api::V1::Items::SearchController < ApplicationController
   private
 
   def query_params
-    params.permit(:name, :created_at, :updated_at)
+    params.permit(:name, :unit_price, :description, :created_at, :updated_at)
   end
 end

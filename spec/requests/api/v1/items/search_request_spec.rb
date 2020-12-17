@@ -24,7 +24,7 @@ describe "Item Find Single Endpoint" do
     expect(item[:attributes][:name].downcase).to include(search.downcase)
 
     #Case-Sensitivity/Partial
-    search = "gREe bUttO"
+    search = "gREe"
 
     get "/api/v1/items/find?name=#{search}"
 
@@ -40,22 +40,6 @@ describe "Item Find Single Endpoint" do
     expect(item[:attributes][:name]).to_not eq(item3.name)
     expect(item[:attributes][:name].downcase).to include(search.downcase)
 
-    #unit_price
-    unit_price = 15.20
-    get "/api/v1/items/find?unit_price=#{unit_price}"
-
-    expect(response).to be_successful
-
-    item = JSON.parse(response.body, symbolize_names: true)[:data]
-
-    expect(item).to be_a Hash
-    expect(item[:id]).to eq(item2.id.to_s)
-    expect(item[:id]).to_not eq(item1.id.to_s)
-    expect(item[:id]).to_not eq(item3.id.to_s)
-    expect(item[:attributes][:unit_price]).to eq(item2.unit_price)
-    expect(item[:attributes][:unit_price]).to_not eq(item3.unit_price)
-
-
     #description
     description = "Shiniest"
     get "/api/v1/items/find?description=#{description}"
@@ -67,7 +51,7 @@ describe "Item Find Single Endpoint" do
     expect(item).to be_a Hash
     expect(item[:id]).to eq(item3.id.to_s)
     expect(item[:id]).to_not eq(item2.id.to_s)
-    expect(item[:id]).to_not eq(item3.id.to_s)
+    expect(item[:id]).to_not eq(item1.id.to_s)
     expect(item[:attributes][:description]).to eq(item3.description)
     expect(item[:attributes][:unit_price]).to_not eq(item2.description)
 
