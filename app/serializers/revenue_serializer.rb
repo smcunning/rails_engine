@@ -1,4 +1,5 @@
 class RevenueSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :id, :revenue
+  attributes :id,
+             :revenue
 end

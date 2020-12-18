@@ -1,12 +1,9 @@
 class Api::V1::Merchants::ItemsController < ApplicationController
   def index
-    merchant = Merchant.find(params[:merchant_id])
-    render json: ItemSerializer.new(merchant.items)
+    render json: ItemFacade.find_by_merchant(params[:merchant_id])
   end
 
   def most_items
-    limit = params['quantity']
-    merchants = Merchant.new.most_items(limit)
-    render json: MerchantSerializer.new(Merchant.find([merchants.keys]))
+    render json: MerchantFacade.most_items(params[:quantity])
   end
 end

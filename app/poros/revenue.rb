@@ -1,5 +1,6 @@
 class Revenue
-  attr_reader :id, :revenue
+  attr_reader :id,
+              :revenue
 
   def initialize(revenue)
     @id = nil

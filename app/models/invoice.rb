@@ -9,12 +9,20 @@ class Invoice < ApplicationRecord
 
   scope :shipped, -> { where(status: 'shipped') }
 
-  def self.total_revenue_by_date(start_date, end_date)
+  def self.most_items(limit)
     Invoice.joins(:invoice_items, :transactions)
-    .merge(Transaction.successful)
-    .merge(Invoice.shipped)
-    .where('DATE(invoices.updated_at) BETWEEN ? AND ?', start_date, end_date)
-    .sum('invoice_items.unit_price * invoice_items.quantity')
+           .merge(Transaction.successful)
+           .group(:merchant_id)
+           .order('sum(invoice_items.quantity) desc')
+           .limit(limit)
+           .sum('invoice_items.quantity')
   end
 
+  def self.total_revenue_by_date(start_date, end_date)
+    Invoice.joins(:invoice_items, :transactions)
+           .merge(Transaction.successful)
+           .merge(Invoice.shipped)
+           .where('DATE(invoices.updated_at) BETWEEN ? AND ?', start_date, end_date)
+           .sum('invoice_items.unit_price * invoice_items.quantity')
+  end
 end

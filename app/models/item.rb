@@ -8,7 +8,7 @@ class Item < ApplicationRecord
   validates :unit_price, presence: true
 
   def self.find_all_items(attribute, query)
-    if attribute == "created_at" || attribute == "updated_at"
+    if %w[created_at updated_at].include?(attribute)
       where("DATE(#{attribute}) = ?", "%#{query}%")
     else
       where("#{attribute} ILIKE ?", "%#{query}%")
@@ -16,7 +16,7 @@ class Item < ApplicationRecord
   end
 
   def self.find_item(attribute, query)
-    if attribute == "created_at" || attribute == "updated_at"
+    if %w[created_at updated_at].include?(attribute)
       find_by("DATE(#{attribute}) = ?", "%#{query}%")
     else
       find_by("#{attribute} ILIKE ?", "%#{query}%")
