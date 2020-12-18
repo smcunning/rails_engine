@@ -18,4 +18,17 @@ class ItemFacade
   def self.destroy_item(id)
     Item.destroy(id)
   end
+
+  def self.find_item(attribute, query)
+    ItemSerializer.new(Item.find_item(attribute, query))
+  end
+
+  def self.find_all_items(attribute, query)
+    ItemSerializer.new(Item.find_all_items(attribute, query))
+  end
+
+  def self.find_by_merchant(merchant_id)
+    merchant = Merchant.find(merchant_id)
+    ItemSerializer.new(merchant.items)
+  end
 end

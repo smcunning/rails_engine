@@ -16,7 +16,7 @@ class Item < ApplicationRecord
   end
 
   def self.find_item(attribute, query)
-    if %w[created_at updated_at created_at updated_at created_at updated_at].include?(attribute)
+    if %w[created_at updated_at].include?(attribute)
       find_by("DATE(#{attribute}) = ?", "%#{query}%")
     else
       find_by("#{attribute} ILIKE ?", "%#{query}%")

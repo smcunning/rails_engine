@@ -9,6 +9,15 @@ class Invoice < ApplicationRecord
 
   scope :shipped, -> { where(status: 'shipped') }
 
+  def self.most_items(limit)
+    Invoice.joins(:invoice_items, :transactions)
+           .merge(Transaction.successful)
+           .group(:merchant_id)
+           .order('sum(invoice_items.quantity) desc')
+           .limit(limit)
+           .sum('invoice_items.quantity')
+  end
+  
   def self.total_revenue_by_date(start_date, end_date)
     Invoice.joins(:invoice_items, :transactions)
            .merge(Transaction.successful)
