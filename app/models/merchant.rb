@@ -7,6 +7,15 @@ class Merchant < ApplicationRecord
 
   validates :name, presence: true
 
+  def most_items(limit)
+    Invoice.joins(:invoice_items, :transactions)
+           .where("transactions.result='success'")
+           .group(:merchant_id)
+           .order('sum(invoice_items.quantity) desc')
+           .limit(limit)
+           .sum('invoice_items.quantity')
+  end
+
   def get_revenue
     invoices.joins(:invoice_items, :transactions)
     .where("transactions.result='success' and invoices.status='shipped'")
