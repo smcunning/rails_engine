@@ -7,6 +7,12 @@ class Merchant < ApplicationRecord
 
   validates :name, presence: true
 
+  def self.total_revenue_by_date(start, stop)
+    Merchant.joins(invoices: [:invoice_items, :transactions])
+            .where('transactions.result =? AND invoices.created_at BETWEEN ? AND ?', 'success', start, stop)
+            .sum('invoice_items.unit_price * invoice_items.quantity')
+  end
+
   def most_items(limit)
     Invoice.joins(:invoice_items, :transactions)
            .where("transactions.result='success'")
