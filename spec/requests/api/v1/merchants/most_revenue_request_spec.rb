@@ -54,4 +54,19 @@ describe 'Merchant BI Endpoints' do
     expect(merchants[:data].first[:attributes]).to have_key(:name)
     expect(merchants[:data][0][:attributes][:name]).to be_a String
   end
+
+  it 'can return total_revenue within a date range' do
+    start = Date.today - 60
+    stop = Date.today + 60
+
+    get "/api/v1/revenue?start=#{start}&end=#{stop}"
+
+    expect(response).to be_successful
+    expect(response.content_type).to eq("application/json")
+
+    revenue = JSON.parse(response.body, symbolize_names: true)
+
+    expect(revenue[:data][:attributes]).to have_key :revenue
+    expect(revenue[:data][:attributes][:revenue]).to be_a Float 
+  end
 end
