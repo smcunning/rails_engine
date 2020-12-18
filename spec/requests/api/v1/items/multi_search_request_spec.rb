@@ -3,10 +3,10 @@ require 'rails_helper'
 describe 'Item Multi-Finder Endpoint' do
   it 'can return all records that match attribute queries' do
     5.times do
-      create(:item, name: "Happy Panda", unit_price: 184.99, description: "The happiest of pandas")
+      create(:item, name: "Happy Panda", unit_price: 184.99, description: "The happiest of pandas", created_at: "2020-12-15")
     end
 
-    item = create(:item, name: "Sad Koala", unit_price: 1982.32, description: "Not a happy koala")
+    item = create(:item, name: "Sad Koala", unit_price: 1982.32, description: "Not a happy koala", updated_at: "2020-01-29")
 
     query = "PaNdA"
 
@@ -27,6 +27,31 @@ describe 'Item Multi-Finder Endpoint' do
       expect(record[:attributes][:unit_price]).to_not eq(1982.32)
       expect(record[:attributes][:description]).to eq("The happiest of pandas")
       expect(record[:attributes][:description]).to_not eq("Not a happy koala")
-    end
+
+    #created_at/updated_at
+    created_at = "2020-12-15"
+    updated_at = "2020-01-29"
+
+    get "/api/v1/items/find_all?created_at=#{created_at}"
+
+    expect(response).to be_successful
+
+    items = JSON.parse(response.body, symbolize_names: true)[:data]
+
+    expect(items).to be_an Array
+    expect(items.count).to eq(5)
+    expect(items[0][:attributes][:name]).to eq("Happy Panda")
+
+    #updated_at
+    get "/api/v1/items/find_all?updated_at=#{updated_at}"
+
+    expect(response).to be_successful
+
+    items = JSON.parse(response.body, symbolize_names: true)[:data]
+
+    expect(items).to be_an Array
+    expect(items.count).to eq(1)
+    expect(items[0][:attributes][:name]).to eq("Sad Koala")
   end
+ end
 end
