@@ -8,10 +8,10 @@ class Merchant < ApplicationRecord
 
   def revenue
     invoices
-    .joins(:invoice_items, :transactions)
-    .merge(Transaction.successful)
-    .merge(Invoice.shipped)
-    .sum('unit_price * quantity')
+      .joins(:invoice_items, :transactions)
+      .merge(Transaction.successful)
+      .merge(Invoice.shipped)
+      .sum('unit_price * quantity')
   end
 
   def self.most_revenue(quantity)

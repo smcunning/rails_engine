@@ -17,7 +17,7 @@ class Invoice < ApplicationRecord
            .limit(limit)
            .sum('invoice_items.quantity')
   end
-  
+
   def self.total_revenue_by_date(start_date, end_date)
     Invoice.joins(:invoice_items, :transactions)
            .merge(Transaction.successful)
